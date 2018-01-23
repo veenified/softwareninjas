@@ -6,10 +6,11 @@ import (
 	"os"
 	"strconv"
 	"bufio"
+	"sort"
 )
 
 func main() {
-	filename := flag.String("input", "time.txt", "a file in the format of 'begintime endtime'")
+	filename := flag.String("input", "time1.txt", "a file in the format of 'begintime endtime'")
 	flag.Parse()
 
 	file, err := os.Open(*filename)
@@ -23,6 +24,7 @@ func main() {
 		exit("Failed to parse the provided file.")
 	}
 	activities := parseLines(lines)
+	sort.Sort(ByTimes{activities})
 
 	unprodictiveHrs := 0
 	for i, a := range activities {
@@ -42,15 +44,10 @@ func parseLines(lines [][]string) []Activity {
 		}
 		ret[i] = Activity{
 			startHr: s,
-			endHr: e,
+			endHr:   e,
 		}
 	}
 	return ret
-}
-
-type Activity struct {
-	startHr int
-	endHr int
 }
 
 func exit(msg string) {

@@ -18,7 +18,7 @@ func Test_TabDelimited(t *testing.T) {
 		{"c1", "c3"},
 	}
 
-	validator(t, expectedOutput, input, '\t', 0, 2)
+	activityReaderValidator(t, expectedOutput, input, '\t', 0, 2)
 }
 
 func Test_SpaceDelimited(t *testing.T) {
@@ -32,10 +32,10 @@ func Test_SpaceDelimited(t *testing.T) {
 		{"c1", "c3"},
 	}
 
-	validator(t, expectedOutput, input, ' ', 0, 2)
+	activityReaderValidator(t, expectedOutput, input, ' ', 0, 2)
 }
 
-func validator(t *testing.T, expectedOutput [][]string, input string, delimiter rune, fields ...int) {
+func activityReaderValidator(t *testing.T, expectedOutput [][]string, input string, delimiter rune, fields ...int) {
 	assert := assert.New(t)
 	buf := bytes.NewBuffer([]byte(input))
 	r := NewActivityReader(buf, fields...)

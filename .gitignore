@@ -3,6 +3,7 @@
 
 # Binaries for programs and plugins
 softwareninjas
+01
 *.exe
 *.dll
 *.so
